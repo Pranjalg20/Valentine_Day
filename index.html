@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For My Baby</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+    <canvas id="heart"></canvas>
+    
+  
+<h1 id="title">Happy Valentine Day!</h1>
+  <p id="description">Will you be mine?</p>
+  <button onclick="celebrate()">Yes, I will 💝</button>
+  <div id="floatingMessage" class="floating-div">
+    <div class="wrap" onclick="openEnvelope()">
+          
+      <div class="envelope">
+        
+          <div class="flap"><p>Tap to Open</p></div>
+      </div>
+      <div class="letter-wrap">
+          <span class="message-in">
+                  <h2>To My Potato,</h2>
+              <p>I would absolutely give you the moon<br>
+                but it’s not mine to give<br><br>
+                
+                I would plant flowers on your pillow<br>
+                 but that’s not where flowers want to live<br><br>
+                
+                I would learn to speak to birds<br>
+                and ask them to sing your favourite song<br>
+                but bird language is not on duolingo<br>
+                and I have a much bigger tongue<br><br>
+                
+                I would break off a piece of the star<br>
+                to make sure you always have light<br>
+                but my hands are only flesh<br>
+                and can’t extend to that height<br><br>
+
+                I would capture the ocean’s waves<br>
+                and place them gently at your feet,<br>
+                but the tide has its own rhythm,<br>
+                a song I cannot repeat.<br><br>
+
+                I would gather echoes of laughter<br>
+                from every joyous place you’ve been,<br>
+                but sound is meant to wander,<br>
+                not be held deep within.<br><br>
+
+                I would chase the fleeting sunset<br>
+                and bottle up its golden hue,<br>
+                but colors fade without the sky—<br>
+                they’re not meant to be subdued.<br><br>
+
+                I would give you all these wonders,<br>
+                but they’re not mine to bestow.<br>
+                Instead, I’ll stand beside you,<br>
+                so you never walk alone.<br><br>
+                 
+                <p style="font-size: xx-large;">I love you so much</p><br>
+              <strong><span style="font-size: xx-large;"> your emo crybaby</span></strong>
+            </p>
+          </span>
+          <button id="reply">Reply</button>
+      </div>
+  </div>
+  </div>
+
+
+  <div id="form-container">
+    <form action="https://formspree.io/f/mjkgeabe" method="POST" id="contact-form">
+        <div class="name-row">
+            <div class="input-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="fname" required>
+            </div>
+            <div class="input-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+        </div>
+        <div class="input-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="mail" required>
+        </div>
+        <div class="input-group">
+            <label for="message">Message</label>
+            <textarea id="message" rows="4" name="Msg" required></textarea>
+        </div>
+        <button class="button-form" type="submit">Send ♥</button>
+    </form>
+ </div>
+<div class="burst-heart">♥</div>
+  
+  
+
+  
+  
+  
+ 
+  <script>
+
+
+    document.getElementById("reply").addEventListener("click", function() {
+      document.getElementById("form-container").classList.add("show");
+  });
+
+
+    function createConfetti() {
+      const colors = [
+       '#FF6666', '#66FF66', '#6666FF', 
+        '#FF66FF', '#FFFF99', '#99FFFF',
+        '#FF9966', '#B57FF2', '#66FFB2'
+      ];
+      const shapes = ['paper-1', 'paper-2', 'paper-3', 'paper-4'];
+      const confetti = document.createElement('div');
+      confetti.className = `confetti ${shapes[Math.floor(Math.random() * shapes.length)]}`;
+      confetti.style.left = Math.random() * window.innerWidth + 'px';
+      confetti.style.top = '-15px';
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+      document.body.appendChild(confetti);
+
+      let position = -15;
+      let rotation = Math.random() * 360;
+      let horizontalPosition = parseFloat(confetti.style.left);
+      const speed = 1 + Math.random() * 2;
+      const horizontalSpeed = (Math.random() - 0.5) * 3;
+      const rotationSpeed = (Math.random() - 0.5) * 8;
+
+      function fall() {
+        position += speed;
+        rotation += rotationSpeed;
+        horizontalPosition += horizontalSpeed;
+        confetti.style.top = position + 'px';
+        confetti.style.transform = `rotate(${rotation}deg)`;
+        confetti.style.left = horizontalPosition + 'px';
+
+        if (position < window.innerHeight) {
+          requestAnimationFrame(fall);
+        } else {
+          confetti.remove();
+        }
+      }
+
+      requestAnimationFrame(fall);
+    }
+
+    function celebrate() {
+      document.getElementById('title').innerHTML = "Yay! I'm so happy!";
+      document.getElementById('description').innerHTML = "Let's make this a beautiful forever";
+      
+      const confettiInterval = setInterval(() => {
+        for (let i = 0; i < 5; i++) {
+          createConfetti();
+        }
+      }, 100);
+
+      setTimeout(() => {
+        clearInterval(confettiInterval);
+        document.getElementById('floatingMessage').classList.add('float-in');
+      }, 5000);
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.innerHTML = '♥';
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 360 + 20 + 'px';
+      heart.style.top = '0px';
+      heart.style.color = `hsl(${330 + Math.random() * 30}, ${70 + Math.random() * 30}%, ${70 + Math.random() * 30}%)`;
+      heart.style.fontSize = (15 + Math.random() * 10) + 'px';
+      document.querySelector('.form-container').appendChild(heart);
+      setTimeout(() => heart.remove(), 3000);
+  }
+
+  setInterval(createHeart, 300);
+
+  const form = document.getElementById('contact-form');
+  const burstHeart = document.querySelector('.burst-heart');
+
+  form.addEventListener('submit', (e) => {
+    burstHeart.style.animation = 'burst 1s ease-out forwards';
+
+    setTimeout(() => {
+        burstHeart.style.animation = '';
+        form.reset();
+    }, 1000);
+});
+ 
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
